@@ -16,12 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasks.views import register_view
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Task Manager is running!")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/register/', register_view, name='register'),
-    path('accounts/', include('django.contrib.auth.urls')),  # login/logout
-    path('', include('tasks.urls')),
+    path('', home),  # <-- Add this to verify deployment
+    path('tasks/', include('tasks.urls')),  # If your app has its own URLs
 ]
+
 
